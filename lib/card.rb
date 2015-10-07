@@ -22,20 +22,20 @@ class Card
   private
 
   def calculate_charge
-    fare = 250
-    if zone_b_entered?
-      fare = 300
-      increase_cap
-    end
-    fare
+    set_cap
+    journey_fare
+  end
+
+  def journey_fare
+    zone_b_entered? ? 300 : 250
   end
 
   def zone_b_entered?
     [start_zone, end_zone].any?{ |zone| zone === :b }
   end
 
-  def increase_cap
-    @cap = 800
+  def set_cap
+     @cap = 800 if zone_b_entered?
   end
 
   def add_to_charge(fare)
