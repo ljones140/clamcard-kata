@@ -1,6 +1,6 @@
 class Card
 
-  attr_reader :on_journey
+  attr_reader :on_journey, :start_zone
 
   def initialize
     @on_journey = false
@@ -8,6 +8,7 @@ class Card
 
   def touch_in(station)
     @on_journey = true
+    @start_zone = station.zone
   end
-  
+
 end
