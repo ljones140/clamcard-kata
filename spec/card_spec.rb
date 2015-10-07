@@ -52,4 +52,21 @@ describe Card do
     end
     expect(subject.charge).to eq(600)
   end
+
+  it 'caps zone a day journeys at 700' do
+    3.times do
+      subject.touch_in(station)
+      subject.touch_out(out_station)
+    end
+    expect(subject.charge).to eq(700)
+  end
+
+  it 'caps zone b day journeys at 800' do
+    3.times do
+      subject.touch_in(station)
+      subject.touch_out(b_station)
+    end
+    expect(subject.charge).to eq(800)
+  end
+
 end

@@ -5,6 +5,7 @@ class Card
   def initialize
     @on_journey = false
     @charge = 0
+    @cap = 700
   end
 
   def touch_in(station)
@@ -22,12 +23,24 @@ class Card
 
   def calculate_charge
     fare = 250
-    fare = 300 if [start_zone, end_zone].any?{ |zone| zone === :b }
+    if zone_b_entered?
+      fare = 300
+      increase_cap
+    end
     fare
+  end
+
+  def zone_b_entered?
+    [start_zone, end_zone].any?{ |zone| zone === :b }
+  end
+
+  def increase_cap
+    @cap = 800
   end
 
   def add_to_charge(fare)
     @charge += fare
+    @charge = @cap if @charge > @cap
   end
 
 end
